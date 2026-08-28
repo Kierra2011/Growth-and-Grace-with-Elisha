@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Growth and Grace with Elisha</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Welcome Modal -->
+    <div class="modal-overlay" id="welcome-modal">
+        <div class="modal-card">
+            <h2>Welcome to Growth & Grace</h2>
+            <p>A safe space to reflect, speak freely, and treat yourself with patience.</p>
+            <form id="name-form">
+                <input type="text" id="user-name-input" placeholder="Enter your name (optional)">
+                <div class="modal-buttons">
+                    <button type="submit" class="btn btn-primary">Continue</button>
+                    <button type="button" class="btn btn-secondary" id="skip-btn">Skip for now</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <header>
+        <div class="brand">
+            <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="48" stroke="currentColor" stroke-width="3" fill="none"/>
+                <path d="M50 75C50 75 35 60 35 40C35 25 50 20 50 20C50 20 65 25 65 40C65 60 50 75 50 75Z" fill="var(--accent-color)" opacity="0.3"/>
+                <path d="M50 75V35M50 45C42 42 35 32 35 32M50 52C58 49 65 39 65 39" stroke="var(--accent-color)" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+            <h1>Growth and Grace with Elisha</h1>
+        </div>
+        <button class="theme-btn" id="theme-toggle">🌙 Dark</button>
+    </header>
+
+    <main class="chat-container">
+        <div class="chat-header">
+            <strong>Safe Space Companion</strong>
+            <p>A gentle space to express how you feel today.</p>
+        </div>
+
+        <div class="chat-messages" id="chat-messages">
+            <!-- Dynamic initial greeting will be injected via JS -->
+        </div>
+
+        <form class="chat-input-area" id="chat-form">
+            <input type="text" id="user-input" placeholder="Share what's on your mind..." autocomplete="off" required>
+            <button type="submit" class="send-btn">Send</button>
+        </form>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
