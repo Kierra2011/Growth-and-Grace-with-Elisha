@@ -1,280 +1,412 @@
+/* ==========================================================================
+   CSS3 Variable Scopes & Design Themes (Gender-Neutral Earth-Tones)
+   ========================================================================== */
 :root {
-    --bg-color: #f4f6f8;
-    --card-bg: #ffffff;
-    --text-color: #2d3748;
-    --subtext-color: #718096;
-    --accent-color: #4a7c59;
-    --accent-hover: #3b6346;
-    --user-msg: #e2e8f0;
-    --bot-msg: #e8f5e9;
-    --border-color: #e2e8f0;
-    --overlay-bg: rgba(0, 0, 0, 0.4);
+    --bg-base: #F7F5F0;        /* Warm Sand / Beige / Nude */
+    --bg-surface: #FFFFFF;     /* Pure Contrast White */
+    --text-main: #2D362E;      /* Rich Charcoal Olive */
+    --text-muted: #6B756D;     /* Muted Sage Slate */
+    --primary-accent: #4A5D4E; /* Deep Sage / Olive Green */
+    --gold-accent: #C5A059;    /* Soft Warm Gold */
+    --border-color: #E6E2D8;   /* Light Nude Accent Border */
+    --transition-speed: 0.4s;
 }
 
 [data-theme="dark"] {
-    --bg-color: #1a202c;
-    --card-bg: #2d3748;
-    --text-color: #f7fafc;
-    --subtext-color: #a0aec0;
-    --accent-color: #68d391;
-    --accent-hover: #48bb78;
-    --user-msg: #4a5568;
-    --bot-msg: #234e52;
-    --border-color: #4a5568;
-    --overlay-bg: rgba(0, 0, 0, 0.7);
+    --bg-base: #1C231E;        /* Deep Forest Charcoal */
+    --bg-surface: #252E28;     /* Rich Textured Forest Green */
+    --text-main: #F4F6F4;      /* Soft Off-White */
+    --text-muted: #A3AFA5;     /* Muted Celadon */
+    --primary-accent: #C5A059; /* Accent Swaps to Gold Core */
+    --gold-accent: #E5C384;    /* Brilliant Soft Gold */
+    --border-color: #323E36;   /* Dark Moss Accent Border */
 }
 
+/* ==========================================================================
+   Global Layout Structure
+   ========================================================================== */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    transition: background-color 0.3s, color 0.3s;
-    -webkit-tap-highlight-color: transparent;
-}
-
-/* Dynamic height fix for iOS mobile viewports */
-html, body {
-    width: 100%;
-    height: 100%;
-    overflow-x: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    background-color: var(--bg-base);
+    color: var(--text-main);
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
-    padding: 16px;
+    padding-bottom: 40px;
 }
 
-/* Modal Overlay & Responsive Mobile Card */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    height: -webkit-fill-available;
-    background-color: var(--overlay-bg);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 100;
-    padding: 16px;
-}
-
-.modal-card {
-    background-color: var(--card-bg);
-    padding: 24px 20px;
-    border-radius: 20px;
-    max-width: 420px;
+/* ==========================================================================
+   Sleek Slow-Moving Marquee Component (CSS3 Translation Animation)
+   ========================================================================== */
+.marquee-wrapper {
     width: 100%;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-    text-align: center;
-    border: 1px solid var(--border-color);
+    background-color: var(--bg-surface);
+    border-bottom: 2px solid var(--border-color);
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 14px 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    position: relative;
+    transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
 }
 
-.modal-card h2 {
-    font-size: 1.3rem;
-    margin-bottom: 10px;
-}
-
-.modal-card p {
-    font-size: 0.9rem;
-    color: var(--subtext-color);
-    margin-bottom: 20px;
-    line-height: 1.4;
-}
-
-.modal-card input[type="text"] {
-    width: 100%;
-    margin-bottom: 15px;
-}
-
-.modal-buttons {
-    display: flex;
-    gap: 10px;
-}
-
-.btn {
-    flex: 1;
-    min-height: 44px; /* Touch-friendly height */
-    padding: 10px 16px;
-    border-radius: 22px;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
+.marquee-content {
+    display: inline-block;
+    animation: scroll-marquee 50s linear infinite; /* Intentionally Slow Reading Pace */
+    padding-left: 100%;
     font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: var(--primary-accent);
 }
 
-.btn-primary {
-    background-color: var(--accent-color);
-    color: #ffffff;
+.marquee-content:hover {
+    animation-play-state: paused;
+    cursor: pointer;
 }
 
-.btn-primary:hover {
-    background-color: var(--accent-hover);
+@keyframes scroll-marquee {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-100%, 0, 0); }
 }
 
-.btn-secondary {
-    background-color: transparent;
-    color: var(--text-color);
-    border: 1px solid var(--border-color);
+/* ==========================================================================
+   Flex Box Core Components Layout
+   ========================================================================== */
+.app-container {
+    width: 90%;
+    max-width: 750px;
+    margin-top: 30px;
 }
 
-/* Header Adjustments for Small Mobile Screens */
 header {
-    width: 100%;
-    max-width: 700px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 16px;
-    padding: 4px 0;
+    margin-bottom: 25px;
+    padding: 0 10px;
 }
 
-.brand {
+h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    color: var(--text-main);
+}
+
+h1 span {
+    color: var(--gold-accent);
+}
+
+.utility-controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.streak-badge {
+    font-size: 0.85rem;
+    font-weight: 600;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    padding: 6px 12px;
+    border-radius: 20px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 6px;
+    transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
 }
 
-.brand svg {
-    flex-shrink: 0;
+.streak-badge span {
+    color: var(--gold-accent);
 }
 
-.brand h1 {
-    font-size: 1.05rem;
-    font-weight: 600;
-    line-height: 1.2;
-}
-
-.theme-btn {
+.theme-toggle-btn {
     background: none;
     border: 1px solid var(--border-color);
-    color: var(--text-color);
+    background-color: var(--bg-surface);
     padding: 8px 14px;
-    min-height: 38px;
     border-radius: 20px;
     cursor: pointer;
+    color: var(--text-main);
+    font-weight: 500;
     font-size: 0.85rem;
-    flex-shrink: 0;
+    transition: all var(--transition-speed) ease;
 }
 
-/* Responsive Chat Container */
-.chat-container {
-    width: 100%;
-    max-width: 700px;
-    flex: 1;
-    height: calc(100vh - 100px);
-    height: calc(100dvh - 100px); /* Dynamic viewport height unit */
-    background-color: var(--card-bg);
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+.theme-toggle-btn:hover {
+    border-color: var(--gold-accent);
+}
+
+.tab-navigation {
     display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    border: 1px solid var(--border-color);
-}
-
-.chat-header {
-    padding: 14px 18px;
+    gap: 10px;
+    margin-bottom: 25px;
     border-bottom: 1px solid var(--border-color);
-    background-color: var(--card-bg);
+    padding-bottom: 8px;
+    transition: border-color var(--transition-speed) ease;
 }
 
-.chat-header p {
-    font-size: 0.85rem;
-    color: var(--subtext-color);
+.tab-btn {
+    background: none;
+    border: none;
+    padding: 8px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s ease;
 }
 
-.chat-messages {
+.tab-btn.active {
+    color: var(--text-main);
+}
+
+.tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -9px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--gold-accent);
+    border-radius: 2px 2px 0 0;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+.card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    margin-bottom: 20px;
+    transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+}
+
+/* ==========================================================================
+   Progress & Functional Elements
+   ========================================================================== */
+.progress-section {
+    margin-bottom: 25px;
+}
+
+.progress-meta {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 8px;
+    background-color: var(--bg-base);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: background-color var(--transition-speed) ease;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    background-color: var(--gold-accent);
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color var(--transition-speed) ease;
+}
+
+.task-input-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+input[type="text"], textarea {
     flex: 1;
-    padding: 16px;
-    overflow-y: auto;
+    background-color: var(--bg-base);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all var(--transition-speed) ease, border-color 0.2s ease;
+}
+
+input[type="text"]:focus, textarea:focus {
+    border-color: var(--gold-accent);
+}
+
+.btn-primary {
+    background-color: var(--primary-accent);
+    color: #FFFFFF;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s ease, background-color var(--transition-speed) ease;
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+}
+
+.task-list {
+    list-style: none;
     display: flex;
     flex-direction: column;
     gap: 12px;
-    -webkit-overflow-scrolling: touch;
 }
 
-.message {
-    max-width: 85%;
-    padding: 12px 16px;
-    border-radius: 18px;
-    font-size: 0.95rem;
-    line-height: 1.4;
-    word-wrap: break-word;
-}
-
-.bot-message {
-    background-color: var(--bot-msg);
-    align-self: flex-start;
-    border-bottom-left-radius: 4px;
-}
-
-.user-message {
-    background-color: var(--user-msg);
-    align-self: flex-end;
-    border-bottom-right-radius: 4px;
-}
-
-/* Mobile Input Bar & Safari Auto-Zoom Fix */
-.chat-input-area {
+.task-item {
     display: flex;
-    padding: 12px;
-    border-top: 1px solid var(--border-color);
-    gap: 8px;
-    background-color: var(--card-bg);
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--bg-base);
+    padding: 14px 16px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    transition: background-color var(--transition-speed) ease;
 }
 
-input[type="text"] {
+.task-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     flex: 1;
-    padding: 12px 16px;
-    border-radius: 25px;
-    border: 1px solid var(--border-color);
-    outline: none;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    font-size: 16px; /* 16px minimum prevents automatic browser zoom on iOS */
 }
 
-button.send-btn {
-    background-color: var(--accent-color);
-    color: #ffffff;
-    border: none;
-    padding: 0 18px;
-    min-height: 44px;
-    border-radius: 25px;
+.task-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary-accent);
     cursor: pointer;
-    font-weight: 600;
+}
+
+.task-text {
     font-size: 0.95rem;
+    font-weight: 500;
+    transition: opacity 0.2s, text-decoration 0.2s;
 }
 
-button.send-btn:hover {
-    background-color: var(--accent-hover);
+.task-item.completed .task-text {
+    text-decoration: line-through;
+    opacity: 0.5;
 }
 
-/* Extra Tweaks for Small Screens (Under 480px) */
-@media (max-width: 480px) {
-    body {
-        padding: 10px;
-    }
+.delete-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 0.85rem;
+    padding: 4px;
+}
 
-    .brand h1 {
-        font-size: 0.95rem;
-    }
+.delete-btn:hover {
+    color: #C94C4C;
+}
 
-    .message {
-        max-width: 90%;
-        font-size: 0.9rem;
-    }
+/* ==========================================================================
+   Journal Modules
+   ========================================================================== */
+.prompt-container {
+    background-color: var(--bg-base);
+    border-left: 3px solid var(--gold-accent);
+    padding: 14px 16px;
+    border-radius: 0 10px 10px 0;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    transition: background-color var(--transition-speed) ease;
+}
 
-    .modal-buttons {
-        flex-direction: column;
-    }
+.prompt-text {
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    font-weight: 500;
+}
+
+.btn-secondary {
+    background: none;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-surface);
+    color: var(--text-main);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all var(--transition-speed) ease;
+}
+
+.btn-secondary:hover {
+    border-color: var(--gold-accent);
+}
+
+.journal-form textarea {
+    width: 100%;
+    height: 100px;
+    resize: none;
+    margin-bottom: 12px;
+}
+
+.journal-history {
+    margin-top: 30px;
+}
+
+.journal-history h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--text-main);
+}
+
+.journal-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.journal-entry-card {
+    background-color: var(--bg-base);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px;
+    transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+}
+
+.entry-meta {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.entry-body {
+    font-size: 0.95rem;
+    line-height: 1.5;
 }
