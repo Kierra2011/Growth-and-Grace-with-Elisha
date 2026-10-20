@@ -3,54 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Growth and Grace with Elisha</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Grace & Growth Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <!-- Welcome Modal -->
-    <div class="modal-overlay" id="welcome-modal">
-        <div class="modal-card">
-            <h2>Welcome to Growth & Grace</h2>
-            <p>A safe space to reflect, speak freely, and treat yourself with patience.</p>
-            <form id="name-form">
-                <input type="text" id="user-name-input" placeholder="Enter your name (optional)">
-                <div class="modal-buttons">
-                    <button type="submit" class="btn btn-primary">Continue</button>
-                    <button type="button" class="btn btn-secondary" id="skip-btn">Skip for now</button>
-                </div>
-            </form>
+    <!-- Gentle Scrolling Marquee Banner via HTML5 semantic markup -->
+    <div class="marquee-wrapper">
+        <div id="marqueeText" class="marquee-content">
+            "Fearfully and wonderfully made." — Psalm 139:14 &nbsp;&bull;&nbsp; Progress is better than perfection. Be gentle with your pace today. &nbsp;&bull;&nbsp; "For God has not given us a spirit of fear, but of power, love, and self-control." — 2 Timothy 1:7 &nbsp;&bull;&nbsp; You are completely capable of stepping out of hesitation and into action. &nbsp;&bull;&nbsp; "Commit your work to the Lord, and your plans will be established." — Proverbs 16:3
         </div>
     </div>
 
-    <header>
-        <div class="brand">
-            <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="50" cy="50" r="48" stroke="currentColor" stroke-width="3" fill="none"/>
-                <path d="M50 75C50 75 35 60 35 40C35 25 50 20 50 20C50 20 65 25 65 40C65 60 50 75 50 75Z" fill="var(--accent-color)" opacity="0.3"/>
-                <path d="M50 75V35M50 45C42 42 35 32 35 32M50 52C58 49 65 39 65 39" stroke="var(--accent-color)" stroke-width="4" stroke-linecap="round"/>
-            </svg>
-            <h1>Growth and Grace with Elisha</h1>
-        </div>
-        <button class="theme-btn" id="theme-toggle">🌙 Dark</button>
-    </header>
+    <div class="app-container">
+        <!-- Application Main Header Controls -->
+        <header>
+            <h1>Grace <span>&</span> Growth</h1>
+            <div class="utility-controls">
+                <div class="streak-badge">
+                    ⚡ Streak: <span id="streakCount">1</span> Day
+                </div>
+                <button id="themeToggle" class="theme-toggle-btn">Dark Mode</button>
+            </div>
+        </header>
 
-    <main class="chat-container">
-        <div class="chat-header">
-            <strong>Safe Space Companion</strong>
-            <p>A gentle space to express how you feel today.</p>
-        </div>
+        <!-- Navigation Segment Structure -->
+        <nav class="tab-navigation">
+            <button class="tab-btn active" onclick="switchTab('home')">Home</button>
+            <button class="tab-btn" onclick="switchTab('journal')">Journal</button>
+        </nav>
 
-        <div class="chat-messages" id="chat-messages">
-            <!-- Dynamic initial greeting will be injected via JS -->
-        </div>
+        <!-- Main Productivity Panel Component -->
+        <main id="homeTab" class="tab-pane active">
+            <div class="card">
+                <section class="progress-section">
+                    <div class="progress-meta">
+                        <span>Daily Completion</span>
+                        <span id="progressPercent">0%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div id="progressBarFill" class="progress-bar-fill"></div>
+                    </div>
+                </section>
 
-        <form class="chat-input-area" id="chat-form">
-            <input type="text" id="user-input" placeholder="Share what's on your mind..." autocomplete="off" required>
-            <button type="submit" class="send-btn">Send</button>
-        </form>
-    </main>
+                <div class="task-input-row">
+                    <input type="text" id="taskInput" placeholder="Add a tiny, manageable action step...">
+                    <button class="btn-primary" onclick="addTask()">Add Step</button>
+                </div>
 
-    <script src="script.js"></script>
+                <ul id="taskList" class="task-list"></ul>
+            </div>
+        </main>
+
+        <!-- Reflective Reflection Panel Component -->
+        <section id="journalTab" class="tab-pane">
+            <div class="card">
+                <div class="prompt-container">
+                    <span id="promptDisplay" class="prompt-text">What is a small victory from today that you can extend gratitude for?</span>
+                    <button class="btn-secondary" onclick="rotatePrompt()">New Prompt</button>
+                </div>
+
+                <div class="journal-form">
+                    <textarea id="journalInput" placeholder="Reflect safely and organically here... Write down what brings you peace or small moments of clarity."></textarea>
+                    <button class="btn-primary" onclick="saveJournalEntry()">Log Reflection</button>
+                </div>
+
+                <section class="journal-history">
+                    <h3>Reflective Growth Log</h3>
+                    <div id="journalList" class="journal-list"></div>
+                </section>
+            </div>
+        </section>
+    </div>
+
+    <!-- Script Injection Pipeline -->
+    <script src="app.js"></script>
 </body>
 </html>
